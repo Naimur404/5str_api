@@ -8,8 +8,8 @@
     <meta name="keywords" content="">
     <meta name="author" content="Pigeon Soft">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="icon" href="{{asset('uploads/'.$app_setting->favicon)}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('uploads/'.$app_setting->favicon)}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('icon/'.$app_setting->favicon)}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('icon/'.$app_setting->favicon)}}" type="image/x-icon">
     <title>
         @if(View::hasSection('title'))
         @yield('title')

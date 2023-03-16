@@ -57,9 +57,8 @@ class UserRoleController extends Controller
     public function addUsers()
     {
         $roles = ModelsRole::get();
-        $outlets = Outlet::pluck('outlet_name', 'id');
-        $warehouses = Warehouse::pluck('warehouse_name', 'id');
-        return view('admin.user_role.add_user', compact('roles', 'outlets', 'warehouses'));
+
+        return view('admin.user_role.add_user', compact('roles'));
     }
 
     public function addUsersStore(Request $request)
@@ -75,8 +74,7 @@ class UserRoleController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->outlet_id = $request->outlet_id;
-        $user->warehouse_id = $request->warehouse_id;
+
         $user->password = Hash::make($request->password);
         $user->save();
 //        $user = User::findOrFail($user_id);
@@ -88,11 +86,10 @@ class UserRoleController extends Controller
     public function editUser($id)
     {
         $data = User::find($id);
-        $outlets = Outlet::pluck('outlet_name', 'id');
-        $warehouses = Warehouse::pluck('warehouse_name', 'id');
+
         $roles = ModelsRole::get();
         $roleuser = DB::table('model_has_roles')->where('model_id', $id)->first();
-        return view('admin.user_role.edit_user', compact('data', 'roles', 'roleuser', 'outlets', 'warehouses'));
+        return view('admin.user_role.edit_user', compact('data', 'roles', 'roleuser'));
     }
 
     public function updateUser(Request $request)
@@ -121,8 +118,7 @@ class UserRoleController extends Controller
         $user = User::find($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->outlet_id = $request->outlet_id;
-        $user->warehouse_id = $request->warehouse_id;
+
         if ($request->password) {
             $request->validate([
 

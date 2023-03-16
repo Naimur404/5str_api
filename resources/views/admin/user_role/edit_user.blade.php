@@ -61,23 +61,8 @@
 								</div>
 							</div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3 mt-2">
-                                        {!! Form::label('Outlets', 'Outlet', array('class' => 'form-label')) !!}
-                                        {!! Form::select('outlet_id', $outlets, $data->outlet_id,['class'=>'form-control', 'placeholder' => 'Choose' ]) !!}
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3 mt-2">
-                                        {!! Form::label('Warehouse', 'Warehouse', array('class' => 'form-label')) !!}
-                                        {!! Form::select('warehouse_id', $warehouses, $data->warehouse_id,['class'=>'form-control', 'placeholder' => 'Choose' ]) !!}
-                                    </div>
-                                </div>
-                            </div>
+                          
 
 							<div class="row">
 								<div class="col">

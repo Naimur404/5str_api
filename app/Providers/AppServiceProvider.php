@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $project_title = '| Viho - Premium Admin Template';
+        $project_title = '| Pharmassist';
         View::share('title', $project_title);
 
         if (Schema::hasTable('settings')) {

@@ -22,7 +22,7 @@ class SettingController extends Controller
 
         $request->validate([
             'app_name' => 'required',
-            'phone_no' => 'required|numeric',
+            'phone_no' => 'required|min:11',
             'address' => 'required|string',
 
 

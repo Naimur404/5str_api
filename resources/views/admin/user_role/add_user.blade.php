@@ -20,10 +20,9 @@
         </div>
 
 		@endslot
-		<li class="breadcrumb-item">DashBoard</li>
-		<li class="breadcrumb-item">Add User</li>
+
         @slot('button')
-        <a href="{{ route('user') }}" class="btn btn-primary btn" data-original-title="btn btn-danger btn" title="">back</a>
+        <a href="{{ route('user') }}" class="btn btn-primary btn" data-original-title="btn btn-danger btn" title="">Back</a>
           @endslot
 
 	@endcomponent
@@ -32,11 +31,9 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card">
-					<div class="card-header pb-0">
-						<h5>Add User</h5>
-					</div>
 
-                        {!! Form::open(['route'=>'add_user_store', 'method'=>'POST', 'role' => 'form', 'class' => 'form theme-form']) !!}
+
+                        {!! Form::open(['route'=>'add_user_store', 'method'=>'POST', 'role' => 'form', 'class' => 'needs-validation', 'novalidate'=> '']) !!}
 
 						<div class="card-body">
                             <div class="row">
@@ -44,27 +41,55 @@
 								<div class="col">
 									<div class="mb-3">
                                         {!! Form::label('exampleFormControlInput1', 'Name', array('class' => 'form-label')) !!}
-                                        {!! Form::text('name',null,['class'=>'form-control', 'id' => 'exampleFormControlInput1' ]) !!}
+                                        {!! Form::text('name',null,['class'=>'form-control', 'id' => 'exampleFormControlInput1','required' ]) !!}
+                                        @error('name')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
 
+                                    @enderror
 									</div>
 								</div>
 							</div>
 							<div class="row">
-
 								<div class="col">
 									<div class="mb-3">
                                         {!! Form::label('exampleFormControlInput1', 'Email address', array('class' => 'form-label')) !!}
-                                        {!! Form::email('email',null,['class'=>'form-control', 'placeholder'=>'name@example.com', 'id' => 'exampleFormControlInput1' ]) !!}
+                                        {!! Form::email('email',null,['class'=>'form-control', 'placeholder'=>'name@example.com', 'id' => 'exampleFormControlInput1','required' ]) !!}
+                                        @error('email')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
 
+                                    @enderror
 									</div>
 								</div>
 							</div>
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 mt-2">
+                                        {!! Form::label('Outlets', 'Outlet', array('class' => 'form-label')) !!}
+                                        {!! Form::select('outlet_id', $outlets, null,['class'=>'form-control', 'placeholder' => 'Choose' ]) !!}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 mt-2">
+                                        {!! Form::label('Warehouse', 'Warehouse', array('class' => 'form-label')) !!}
+                                        {!! Form::select('warehouse_id', $warehouses, null,['class'=>'form-control', 'placeholder' => 'Choose' ]) !!}
+                                    </div>
+                                </div>
+                            </div>
+
 							<div class="row">
 								<div class="col">
 									<div class="mb-3">
                                         {!! Form::label('exampleInputPassword2', 'Password', array('class' => 'form-label')) !!}
-                                        {!! Form::password('password',['class'=>'form-control', 'placeholder'=>'Password', 'id' => 'exampleInputPassword2' ]) !!}
+                                        {!! Form::password('password',['class'=>'form-control', 'placeholder'=>'Password', 'id' => 'exampleInputPassword2','required' ]) !!}
+                                        @error('password')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
 
+                                    @enderror
 									</div>
 								</div>
 							</div>
@@ -72,7 +97,7 @@
 								<div class="col">
 									<div class="mb-3">
                                         {!! Form::label('exampleInputPassword2', 'Confirm Password', array('class' => 'form-label')) !!}
-                                        {!! Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Password', 'id' => 'exampleInputPassword2' ]) !!}
+                                        {!! Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Password', 'id' => 'exampleInputPassword2','required' ]) !!}
 
 									</div>
 								</div>
@@ -86,6 +111,10 @@
 										<select id="sel_emp" style="width: 1600px;" name="role">
                                             <option value="0">-- Select Role --</option>
                                          </select>
+                                         @error('role')
+                                         <div class="invalid-feedback2"> {{ $message }}</div>
+
+                                     @enderror
 									</div>
 								</div>
 							</div>

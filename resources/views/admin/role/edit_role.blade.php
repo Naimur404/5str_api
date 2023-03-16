@@ -20,7 +20,7 @@
 		<li class="breadcrumb-item">DashBoard</li>
 		<li class="breadcrumb-item">Edit Role</li>
         @slot('button')
-        <a href="{{ route('permission') }}" class="btn btn-primary btn" data-original-title="btn btn-danger btn" title="">Back</a>
+        <a href="{{ route('role') }}" class="btn btn-primary btn" data-original-title="btn btn-danger btn" title="">Back</a>
         @endslot
 
 	@endcomponent
@@ -29,9 +29,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card">
-					<div class="card-header pb-0">
-						<h5>Edit Role</h5>
-					</div>
+
 
                         {!! Form::open(['route'=>['update_role'], 'method'=>'POST', 'role' => 'form', 'class' => 'form theme-form']) !!}
                         {!! Form::token(); !!}

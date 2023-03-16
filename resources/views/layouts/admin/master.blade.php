@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{!! $app_setting->description !!}">
     <meta name="keywords" content="">
-    <meta name="author" content="pixelstrap">
+    <meta name="author" content="Pigeon Soft">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{asset('uploads/'.$app_setting->favicon)}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('uploads/'.$app_setting->favicon)}}" type="image/x-icon">
@@ -47,7 +47,7 @@
           <!-- Container-fluid Ends-->
         </div>
         <!-- footer start-->
-        <footer class="footer @if(url()->current() == route('footer-dark')) footer-dark @elseif(url()->current() == route('footer-fixed')) footer-fix @endif">
+        <footer class="footer">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-6 footer-copyright">

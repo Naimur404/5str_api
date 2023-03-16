@@ -14,12 +14,12 @@
 		@slot('breadcrumb_title')
         <div class="row">
             <div class="col-sm-6">
-			<h3>Add Role</h3>
+			<h3>All Role</h3>
         </div>
 
         </div>
 		@endslot
-		<li class="breadcrumb-item">Add Role</li>
+
         @slot('button')
         <a href="{{ route('add_role') }}" class="btn btn-primary btn" data-original-title="btn btn-danger btn" title="">Add Role</a>
         @endslot
@@ -30,15 +30,13 @@
 	        <!-- Individual column searching (text inputs) Starts-->
 	        <div class="col-sm-12">
 	            <div class="card">
-	                <div class="card-header pb-0">
-	                    <h5>Role</h5>
 
-	                </div>
 	                <div class="card-body">
 	                    <div class="table-responsive product-table">
 	                        <table class="display data-table">
 	                            <thead>
 	                                <tr>
+                                        <th>SI</th>
 	                                    <th>Name</th>
 	                                    <th>Guard</th>
 
@@ -60,7 +58,7 @@
 	</div>
 
 	@push('scripts')
-	<script src="{{asset('assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
+
 
     <script src="{{asset('assets/js/notify/bootstrap-notify.min.js')}}"></script>
     <script type="text/javascript">
@@ -75,10 +73,11 @@
         serverSide: true,
         ajax: "{{ route('role') }}",
         columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
             {data: 'guard_name', name: 'guard'},
 
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data: 'action', name: 'action', orderable: false, searchable: false ,className: "uniqueClassName"},
         ]
     });
 });

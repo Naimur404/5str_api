@@ -4,6 +4,23 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+  .class2{
+        height: 45px;
+        width: 90px;
+        margin: auto;
+    }
+.uniqueClassName {
+    text-align: center;
+}
+
+ .invalid-feedback2 {
+
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -2064,7 +2081,9 @@ textarea.form-control-lg {
     -webkit-filter: none;
             filter: none;
     opacity: 0.65; }
-
+.btn{
+    float: center;
+}
 .form-range {
   width: 100%;
   height: 1.5rem;

@@ -17,8 +17,7 @@
 
         </div>
 		@endslot
-		<li class="breadcrumb-item">DashBoard</li>
-		<li class="breadcrumb-item">Edit Permission</li>
+	
         @slot('button')
         <a href="{{ route('permission') }}" class="btn btn-primary btn" data-original-title="btn btn-danger btn" title="">Back</a>
         @endslot
@@ -29,11 +28,9 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card">
-					<div class="card-header pb-0">
-						<h5>Edit Permission</h5>
-					</div>
 
-                        {!! Form::open(['route'=>['update_permission'], 'method'=>'POST', 'role' => 'form', 'class' => 'form theme-form']) !!}
+
+                        {!! Form::open(['route'=>['update_permission'], 'method'=>'POST', 'role' => 'form','class' => 'needs-validation', 'novalidate'=> '']) !!}
                         {!! Form::token(); !!}
                         {!! Form::hidden('id',$permission->id) !!}
 
@@ -45,7 +42,9 @@
 									<div class="mb-3">
                                         {!! Form::label('exampleFormControlInput1', 'Permission Name', array('class' => 'form-label')) !!}
                                         {!! Form::text('name',$permission->name,['class'=>'form-control', 'id' => 'exampleFormControlInput' ]) !!}
-
+                                        @error('name')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
+                                    @enderror
 									</div>
 								</div>
 							</div>

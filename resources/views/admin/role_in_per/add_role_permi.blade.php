@@ -20,8 +20,7 @@
         </div>
 
 		@endslot
-		<li class="breadcrumb-item">DashBoard</li>
-		<li class="breadcrumb-item">Add Role In Permission</li>
+	
 
 
 	@endcomponent
@@ -30,10 +29,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card">
-					<div class="card-header pb-0">
-						<h5>Add Role In Permission</h5>
-					</div>
-                    {!! Form::open(['route'=>'add_role_permission', 'method'=>'POST', 'role' => 'form', 'class' => 'form theme-form']) !!}
+
+                    {!! Form::open(['route'=>'add_role_permission', 'method'=>'POST', 'role' => 'form', 'class' => 'needs-validation', 'novalidate'=> '']) !!}
 
 
 						<div class="card-body">
@@ -42,9 +39,12 @@
 								<div class="col">
 									<div class="mb-3 mt-2">
 
-										<select id="sel_emp" style="width: 1600px;" name="role">
-                                            <option value="0">-- Select Role --</option>
+
+										<select id="sel_emp" style="width: 1600px;" name="role" required>
+                                            <option value="" selected="" disabled="">-- Select Role --</option>
+
                                          </select>
+                                         <div class="invalid-feedback">Please select a Role</div>
 									</div>
 								</div>
 							</div>
@@ -85,7 +85,7 @@
 
 
 	@push('scripts')
-
+    <script src="{{asset('assets/js/notify/bootstrap-notify.min.js')}}"></script>
 
     <script type="text/javascript">
         // CSRF Token
@@ -125,6 +125,32 @@ $('#checkbox-primary-1-All').click(function(){
 })
 
         </script>
+        @if (Session()->get('success'))
+
+        <script>
+        $.notify('<i class="fa fa-bell-o"></i><strong>{{ Session()->get('success') }}</strong>', {
+        type: 'theme',
+        allow_dismiss: true,
+        delay: 2000,
+        showProgressbar: true,
+        timer: 300
+        });
+        </script>
+
+        @endif
+        @if (Session()->get('error'))
+
+        <script>
+        $.notify('<i class="fa fa-bell-o"></i><strong>{{ Session()->get('error') }}</strong>', {
+        type: 'theme',
+        allow_dismiss: true,
+        delay: 2000,
+        showProgressbar: true,
+        timer: 300
+        });
+        </script>
+
+        @endif
 	@endpush
 
 @endsection

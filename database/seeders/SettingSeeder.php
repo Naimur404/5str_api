@@ -18,15 +18,15 @@ class SettingSeeder extends Seeder
         $setting = [
             'logo' => 'logo.png',
             'favicon' => 'favicon.png',
-            'app_name' => 'Pigeon Soft',
+            'app_name' => 'Pharmassist',
             'address' => 'Dhaka, Bangladesh',
             'phone_no' => '+88 01737-569833',
-            'description' => 'Pigeon Soft is a full-service visual communications and information technology company located in Bangladesh',
+            'description' => 'Pharmacy Management Application',
             'website' => 'https://pigeon-soft.com/',
-            'footer_text' => '© 2016 - 2023 Copyright Pigeon Soft. All Rights Reserved'
+            'footer_text' => '© 2016 - 2023 Copyright Pigeon Soft.'
         ];
-        $settings = Settings::all();
-        if (empty($settings)) {
+        $settings = Settings::all()->first();
+        if (is_null($settings)) {
             Settings::create($setting);
         }
 

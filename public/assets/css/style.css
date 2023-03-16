@@ -2344,7 +2344,7 @@ table tbody .border-bottom-warning td {
   border-radius: 0;
   background-color: #fff; }
   .card .card-header {
-    padding: 30px;
+    padding: 10px;
     border-bottom: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -4320,7 +4320,7 @@ table tbody .border-bottom-warning td {
     transition: 0.5s;
     background-color: #f5f7fb; }
   .page-wrapper .page-body-wrapper .page-header {
-    padding-bottom: 30px; }
+    padding-bottom: 10px; }
     .page-wrapper .page-body-wrapper .page-header .row {
       -webkit-box-align: center;
           -ms-flex-align: center;
@@ -5757,21 +5757,32 @@ table tbody .border-bottom-warning td {
 
 .btn-xs {
   padding: 0.2rem 0.7rem;
-  font-size: 10px; }
+  font-size: 11px; }
 
 .large-btn {
   margin-bottom: -20px; }
   .large-btn .btn {
     margin-right: 5px;
     margin-bottom: 15px; }
-
+ .footerextra{
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 20px 16px rgb(4 122 251 / 4%);
+    box-shadow: 0 0 20px 16px rgb(4 122 251 / 4%);
+    padding: 15px;
+    bottom: 0;
+    left: 0;
+    margin-left: 0px;
+ }
 .btn-air-primary {
   -webkit-box-shadow: 0 5px 10px 2px rgba(36, 105, 92, 0.19) !important;
           box-shadow: 0 5px 10px 2px rgba(36, 105, 92, 0.19) !important; }
   .btn-air-primary:hover, .btn-air-primary:active, .btn-air-primary:not([disabled]):not(.disabled):active {
     background-color: #17433b;
     border-color: #17433b; }
-
+.uniqueClassName{
+text-align: center;
+vertical-align: middle;
+ }
 .btn-air-secondary {
   -webkit-box-shadow: 0 5px 10px 2px rgba(36, 105, 92, 0.19) !important;
           box-shadow: 0 5px 10px 2px rgba(36, 105, 92, 0.19) !important; }
@@ -10086,7 +10097,7 @@ strong {
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice {
   padding: 2px 6px !important;
-  margin-top: 0 !important;
+  margin-top: 3px !important;
   background-color: #24695c !important;
   border-color: #17433b !important;
   color: #fff;
@@ -10095,7 +10106,10 @@ strong {
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove {
   color: #fff !important;
   float: right;
-  margin-left: 0.5rem; }
+  margin-top: 3px !important;
+  margin-left: 0.5rem;
+
+ }
 
 .select2-container--classic .select2-results__option--highlighted[aria-selected] {
   background-color: #e0e0e0 !important;
@@ -10110,21 +10124,25 @@ strong {
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   padding: 2px 6px !important;
-  margin-top: 0 !important;
+  margin-top: 3px !important;
   background-color: #24695c !important;
   border-color: #17433b !important;
   color: #fff;
   margin-right: 8px !important; }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-  color: #fff !important;
+  color: darkgrey !important;
   float: right;
-  margin-left: 0.5rem; }
+  margin-left: 0.5rem;
+  position: relative !important;
+  border-right: 0px !important;}
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
   background-color: #e0e0e0 !important;
   color: #424242 !important; }
-
+  .buttonsBlock {
+    white-space: nowrap;
+}
 .select2-container--default .select2-results__options .select2-results__option[aria-selected=true] {
   background-color: #24695c !important;
   color: #fff !important; }
@@ -11868,7 +11886,7 @@ div.DTS div.dataTables_scrollBody table {
     .dataTables_wrapper table.dataTable thead th, .dataTables_wrapper table.dataTable thead td {
       border-bottom: 2px solid #e6edef; }
     .dataTables_wrapper table.dataTable th, .dataTables_wrapper table.dataTable td {
-      padding: 0.75rem;
+      padding: 0.5rem;
       border-color: #e6edef; }
   .dataTables_wrapper .dataTables_filter {
     margin-bottom: 25px;
@@ -12199,15 +12217,15 @@ table.dataTable.display tbody tr {
 .product-table img {
   height: 40px; }
 
-.product-table span, .product-table p {
-  color: #59667a; }
+/* .product-table span, .product-table p {
+  color: #59667a; } */
 
 .product-table tbody tr td:first-child {
   text-align: center; }
 
 .product-table .dataTables_wrapper button {
-  padding: 2px 12px;
-  font-size: 14px; }
+    padding: 0.2rem 0.7rem;
+    font-size: 11px; }
 
 .d-none-productlist {
   display: none; }
@@ -14385,7 +14403,7 @@ body {
 .table {
   margin-bottom: 0px; }
   .table th, .table td {
-    padding: 0.75rem; }
+    padding: 0.5rem; }
   .table th {
     color: #242934; }
   .table td {

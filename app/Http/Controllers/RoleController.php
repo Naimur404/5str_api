@@ -42,6 +42,11 @@ class RoleController extends Controller
     }
 
     public function storeRole(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+
+
+        ]);
          ModelsRole::create([
             'name' => $request->name,
             'guard_name' => 'web',
@@ -54,6 +59,11 @@ class RoleController extends Controller
         return view('admin.role.edit_role', compact('role'));
     }
     public function updateRole(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+
+
+        ]);
        $per_id = $request->id;
        ModelsRole::findOrFail($per_id)->update([
         'name' => $request->name,
@@ -92,20 +102,34 @@ class RoleController extends Controller
         return view('admin.role_in_per.add_role_permi',compact('permissions'));
      }
      public function storeRolePermission(Request $request){
+        $request->validate([
+            'role' => 'required',
+
+
+        ]);
         $data = array();
+
         $role = ModelsRole::findOrFail($request->role);
         $permissions = $request->permission;
-        if(!empty($role)){
-        $role->syncPermissions($permissions);
+        if(empty($permissions)){
+            return redirect()->back()->with('success','Please Select Permission');
 
         }else{
-            foreach($permissions as $key => $item){
-                $data['role_id'] = $request->role;
-                $data['permission_id'] = $item;
-                DB::table('role_has_permissions')->insert($data);
+            if(!empty($role)){
+                $role->syncPermissions($permissions);
 
-               }
+                }else{
+
+                    foreach($permissions as $key => $item){
+                        $data['role_id'] = $request->role;
+                        $data['permission_id'] = $item;
+                        DB::table('role_has_permissions')->insert($data);
+
+                       }
+                }
+
         }
+
 
        return redirect()->route('allrolepermission')->with('success','Role in permission add successfully');
 
@@ -138,6 +162,7 @@ class RoleController extends Controller
         return view('admin.role_in_per.edit_role_per',compact('role','permissions'));
      }
      public function updateRolePermission(Request  $request, $id){
+
         $role = ModelsRole::findOrFail($id);
         $permission = $request->permission;
         if(!empty($permission)){
@@ -155,6 +180,7 @@ class RoleController extends Controller
         }
         return redirect()->route('allrolepermission')->with('error','Delete successfully');
      }
+
 
 
 }

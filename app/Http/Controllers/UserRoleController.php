@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\HealthOrganization;
+use App\Models\Outlet;
 use App\Models\User;
 use App\Models\UserHasOrganization;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -21,145 +23,134 @@ class UserRoleController extends Controller
     {
         $this->middleware(['role:Super Admin']);
     }
-    public function users(Request $request){
+
+    public function users(Request $request)
+    {
         $users = User::get();
         if ($request->ajax()) {
-            $data = User::orderBy("id","desc")->get();
-            return  Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('type', function($row){
-                        return view('admin.action.type',compact('row'));
+            $data = User::orderBy("id", "desc")->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('type', function ($row) {
+                    return view('admin.action.type', compact('row'));
 
-                 })
-                    ->addColumn('action', function($row){
+                })
+                ->addColumn('action', function ($row) {
 
-                           $edit = route('edit_user',$row->id);
-                           $delete = route('delete_user',$row->id);
-                           $btn = '<a href="'.$edit.'" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editBook">Edit</a>';
+                    $edit = route('edit_user', $row->id);
+                    $delete = route('delete_user', $row->id);
+                    $btn = '<a href="' . $edit . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBook">Edit</a>';
 
-                           $btn = $btn.' <a href="'.$delete.'" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteBook">Delete</a>';
-                        
+                    $btn = $btn . ' <a href="' . $delete . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBook">Delete</a>';
 
 
-                            return $btn;
-                    })
-                    ->rawColumns(['type'])
-                    ->rawColumns(['action'])
-                    ->make(true);
+                    return $btn;
+                })
+                ->rawColumns(['type'])
+                ->rawColumns(['action'])
+                ->make(true);
         }
 
         return view('admin.user_role.user_role', compact('users'));
     }
-    public function addUsers(){
+
+    public function addUsers()
+    {
         $roles = ModelsRole::get();
-        return view('admin.user_role.add_user',compact('roles'));
+        $outlets = Outlet::pluck('outlet_name', 'id');
+        $warehouses = Warehouse::pluck('warehouse_name', 'id');
+        return view('admin.user_role.add_user', compact('roles', 'outlets', 'warehouses'));
     }
-    public function addUsersStore(Request $request){
+
+    public function addUsersStore(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed|min:8',
 
-           ]);
-           $q = DB::select("SHOW TABLE STATUS LIKE 'users'");
-           $user_id = $q[0]->Auto_increment;
-           $user = new User();
-           $user->name = $request->name;
-           $user->email = $request->email;
-           $user->password = Hash::make($request->password);
-           $user->save();
-           $user = User::findOrFail($user_id);
-           $user->assignRole($request->role);
-           return redirect()->route('user')->with('success','Add New User successfully');
+        ]);
+//        $q = DB::select("SHOW TABLE STATUS LIKE 'users'");
+//        $user_id = $q[0]->Auto_increment;
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->outlet_id = $request->outlet_id;
+        $user->warehouse_id = $request->warehouse_id;
+        $user->password = Hash::make($request->password);
+        $user->save();
+//        $user = User::findOrFail($user_id);
+        $user->assignRole($request->role);
+        return redirect()->route('user')->with('success', 'Add New User successfully');
 
     }
 
-public function editUser($id){
-    $data = User::find($id);
+    public function editUser($id)
+    {
+        $data = User::find($id);
+        $outlets = Outlet::pluck('outlet_name', 'id');
+        $warehouses = Warehouse::pluck('warehouse_name', 'id');
+        $roles = ModelsRole::get();
+        $roleuser = DB::table('model_has_roles')->where('model_id', $id)->first();
+        return view('admin.user_role.edit_user', compact('data', 'roles', 'roleuser', 'outlets', 'warehouses'));
+    }
 
-    $roles = ModelsRole::get();
-    $roleuser =  DB::table('model_has_roles')->where('model_id',$id)->first();
-    return view('admin.user_role.edit_user',compact('data','roles','roleuser'));
-}
-public function updateUser(Request $request){
-    $request->validate([
-
-        'email' => 'email',
-
-
-       ]);
-
-       $user = User::find($request->id);
-       $user->name = $request->name;
-       $user->email = $request->email;
-       if($request->password){
+    public function updateUser(Request $request)
+    {
         $request->validate([
 
-            'password' => 'required|confirmed|min:8',
+            'email' => 'email',
 
-           ]);
-        $user->password = Hash::make($request->password);
-       }
-     $role =  DB::table('model_has_roles')->where('model_id',$request->id)->first();
-     if(!empty($role)){
-        DB::table('model_has_roles')->where('model_id',$request->id)->delete();
-     }
-     if($request->role){
-        $user = User::findOrFail($request->id);
-        $user->assignRole($request->role);
-       }
-       $user->save();
+        ]);
+        $role = DB::table('model_has_roles')->where('model_id', $request->id)->first();
+        if (!empty($role)) {
+            DB::table('model_has_roles')->where('model_id', $request->id)->delete();
+        }
+         $model = array(
 
+         'role_id'  => $request->role,
+         'model_type' => 'App\Models\User',
+         'model_id'   => $request->id,
 
-       return redirect()->route('user')->with('success','Update User successfully');
-
-}
+         );
 
 
-    public function deleteUser($id){
-        $user = User::find($id);
-        $user->delete();
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-        return redirect()->route('user')->with('success','Delete User successfully');
+         DB::table('model_has_roles')->insert($model);
+
+
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->outlet_id = $request->outlet_id;
+        $user->warehouse_id = $request->warehouse_id;
+        if ($request->password) {
+            $request->validate([
+
+                'password' => 'required|confirmed|min:8',
+
+            ]);
+            $user->password = Hash::make($request->password);
+        }
+
+
+        $user->update();
+
+
+
+
+        return redirect()->route('user')->with('success', 'Update User successfully');
 
     }
-    public function addUserOrg($id){
-        $id = $id;
-        $role = UserHasOrganization::where('user_id',$id)->get();
-        $data = HealthOrganization::all();
-
-        if(isNull($role)){
-            $bol = false;
-            return view('admin.organization.add_user_org',compact('role','data','id','bol'));
-        }else{
-            return view('admin.organization.add_user_org',compact('role','data','id'));
-        }
 
 
-     }
-     public function storeUserOrg(Request $request){
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
+        return redirect()->route('user')->with('success', 'Delete User successfully');
 
-        $data = array();
-        $roles = UserHasOrganization::where('user_id',$request->id)->get();
-
-        $permissions = $request->org;
-
-        if(!empty($roles)){
-            foreach( $roles as $item){
-                 UserHasOrganization::where('user_id',$request->id)->delete();
-
-            }
-            foreach($permissions as $key => $item){
-                $data['user_id'] = $request->id;
-                $data['organization_id'] = $item;
-                DB::table('user_has_organizations')->insert($data);
-            }
+    }
 
 
-
-        }
-
-       return redirect()->route('allrolepermission')->with('success','Role in permission added successfully');
-
-     }
 }

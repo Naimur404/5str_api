@@ -25,18 +25,9 @@
                 <div class="card">
 					<div class="card-header pb-0">
 						<h5>Logo & Favicon</h5>
-                        @if ($errors->any())
 
-                        @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-                            {{ $error }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                        @endforeach
-
-                      @endif
 					</div>
-                    {!! Form::open(['route'=>'updatesetting', 'method'=>'POST', 'files' => true, 'role' => 'form']) !!}
+                    {!! Form::open(['route'=>'updatesetting', 'method'=>'POST', 'files' => true, 'role' => 'form', 'class' => 'needs-validation', 'novalidate'=> '']) !!}
 
 
 						<div class="card-body">
@@ -59,7 +50,10 @@
 										<div class="col-sm-9">
                                             {!! Form::file('logo',['class'=>'form-control btn-pill' ]) !!}
 
+                                            @error('logo')
+                                            <div class="invalid-feedback2"> {{ $message }}</div>
 
+                                        @enderror
 										</div>
 									</div>
 
@@ -84,7 +78,10 @@
 										<label class="col-sm-3 col-form-label">Change Favicon</label>
 										<div class="col-sm-9">
                                             {!! Form::file('favicon',['class'=>'form-control btn-pill' ]) !!}
+                                            @error('favico')
+                                            <div class="invalid-feedback2"> {{ $message }}</div>
 
+                                        @enderror
 
 
 										</div>
@@ -108,7 +105,11 @@
 {{--
 										<input class="form-control btn-pill" id="exampleFormControlInput5" type="text" value="{{ $data->app_name }}" name="app_name" /> --}}
                                         {!! Form::label('app_name', 'App Name:', array('class' => 'form-label','for' => 'exampleFormControlInput5')) !!}
-                                        {!! Form::text('app_name',$data->app_name,['class'=>'form-control btn-pill', 'placeholder'=>'App Name', 'id' => 'exampleFormControlInput5' ]) !!}
+                                        {!! Form::text('app_name',$data->app_name,['class'=>'form-control btn-pill', 'placeholder'=>'App Name', 'id' => 'exampleFormControlInput5','required' ]) !!}
+                                        @error('app_name')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
+
+                                    @enderror
 									</div>
 								</div>
 							</div>
@@ -117,9 +118,11 @@
 									<div class="mb-3">
 
                                         {!! Form::label('phone_no', 'Phone Number:', array('class' => 'form-label','for' => 'exampleInputPassword6')) !!}
-                                        {!! Form::text('phone_no',$data->phone_no,['class'=>'form-control btn-pill', 'placeholder'=>'Phone Number', 'id' => 'exampleInputPassword6' ]) !!}
+                                        {!! Form::number('phone_no',$data->phone_no,['class'=>'form-control btn-pill', 'placeholder'=>'Phone Number', 'id' => 'exampleInputPassword6'  ]) !!}
+                                        @error('phone_no')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
 
-                                        <x-input-error :messages="$errors->get('phone_no')" class="mt-2" />
+                                    @enderror
 									</div>
 
 								</div>
@@ -130,6 +133,10 @@
 
                                         {!! Form::label('address', 'Address:', array('class' => 'form-label','for' => 'exampleInputPassword6')) !!}
                                         {!! Form::text('address',$data->address,['class'=>'form-control btn-pill', 'placeholder'=>'Address', 'id' => 'exampleInputPassword6' ]) !!}
+                                        @error('address')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
+
+                                    @enderror
 									</div>
 								</div>
 							</div>
@@ -139,7 +146,10 @@
 
                                         {!! Form::label('website', 'Website:', array('class' => 'form-label','for' => 'exampleInputPassword6')) !!}
                                         {!! Form::text('website',$data->website,['class'=>'form-control btn-pill', 'placeholder'=>'Website', 'id' => 'exampleInputPassword6' ]) !!}
-                                        <x-input-error :messages="$errors->get('website')" class="mt-2" />
+                                        @error('website')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
+
+                                    @enderror
 									</div>
 								</div>
 							</div>
@@ -150,7 +160,10 @@
 
                                         {!! Form::label('description', 'Description', array('class' => 'form-label')) !!}
                                         {!! Form::textarea('description',$data->description,['class'=>'form-control summernote', 'placeholder'=>'Description',  ]) !!}
-                                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                        @error('description')
+                                        <div class="invalid-feedback2"> {{ $message }}</div>
+
+                                    @enderror
 									</div>
 								</div>
 							</div>

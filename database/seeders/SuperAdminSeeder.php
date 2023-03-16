@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class UserSeeder extends Seeder
+class SuperAdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,8 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
-        $userExists = User::where('email', '=', 'admin@admin.com')->exists();
+        $userExists = User::where('email', '=', 'superadmin@gmail.com')->exists();
         $role = Role::firstOrCreate(['name' => 'Super Admin']);
 
         $permissions = Permission::pluck('id','id')->all();
@@ -28,13 +27,16 @@ class UserSeeder extends Seeder
         if (!$userExists) {
             $user = User::create([
                 'name' => 'Ariful Islam',
-                'email' => 'admin@admin.com',
+                'email' => 'superadmin@gmail.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('12345678')
             ]);
 
             $user->assignRole([$role->id]);
         }
-
+        else{
+            $user = User::where('email', '=', 'superadmin@gmail.com')->first();
+            $user->assignRole([$role->id]);
+        }
     }
 }

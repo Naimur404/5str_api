@@ -38,5 +38,10 @@ class SuperAdminSeeder extends Seeder
             $user = User::where('email', '=', 'superadmin@gmail.com')->first();
             $user->assignRole([$role->id]);
         }
+
+        \App\Models\User::factory()->count(20)->create([
+            'user_type' => 'user',
+            'is_active' => true,
+        ]);
     }
 }

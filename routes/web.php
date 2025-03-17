@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'],function () {
 
 Route::group(['middleware' => ['auth']],function () {
 
-Route::get('get-user-details/{id}', [Select2Controller::class,'get_user_details']);
+// Route::get('get-user-details/{id}', [Select2Controller::class,'get_user_details']);
 
 
 

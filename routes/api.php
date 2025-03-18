@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\API\ApiAuthController;
+use App\Http\Controllers\Api\ApiAuthController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiCategoryController;
 use App\Http\Controllers\Api\ApiFavoriteController;
-use App\Http\Controllers\API\ApiHomeController;
+use App\Http\Controllers\Api\ApiHomeController;
 use App\Http\Controllers\Api\ApiOfferController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiReviewController;
 use App\Http\Controllers\Api\ApiSearchController;
-use App\Http\Controllers\api\ApiBusinessController;
+use App\Http\Controllers\Api\ApiBusinessController;
 use Illuminate\Support\Facades\Route;
 
 /*
